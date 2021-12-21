@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  configManagementPlugins: |
+    - name: terraform
+      init:
+        command: ["/bin/sh", "-c"]
+        args:
+          - "./terraform init"
+          - "./terraform apply -auto-approve"
+      generate:
+        command: ["/bin/sh", "-c"]
+        args: ["kubectl get all -n hello-world-namespace -o yaml"]
+
