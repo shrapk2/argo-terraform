@@ -13,9 +13,10 @@ data:
       init:
         command: ["/bin/sh", "-c"]
         args:
+          - "pwd"
           - "./terraform init"
           - "./terraform apply -auto-approve"
       generate:
         command: ["/bin/sh", "-c"]
-        args: ["kubectl get all -n hello-world-namespace -o yaml"]
+        args: ["pwd;kubectl get all -n hello-world-namespace -o yaml"]
 
